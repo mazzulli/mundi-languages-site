@@ -1,3 +1,4 @@
+import { FromTheBlog } from "@/components/blog/from-the-blog";
 import { ClipboardCheck, FileBarChart, Route } from "lucide-react";
 
 import { ProgramFan } from "@/components/business/program-fan";
@@ -9,6 +10,8 @@ import { CtaLink } from "@/components/ui/cta-link";
 import { HydrationBoundary } from "@/components/ui/hydration-boundary";
 import { SectionHeader } from "@/components/ui/section-header";
 import { consultationHref } from "@/lib/cta-links";
+import { JsonLd } from "@/components/seo/json-ld";
+import { courseListJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { reveal } from "@/lib/reveal";
 import { businessAreas, businessPage } from "@content/programs";
@@ -16,7 +19,6 @@ import { businessAreas, businessPage } from "@content/programs";
 export const metadata = pageMetadata({
   seo: businessPage.seo,
   path: businessPage.path,
-  fallbackDescription: businessPage.subtitle,
 });
 
 const PROPOSAL_HREF = "/agendamento/?perfil=empresa";
@@ -45,6 +47,12 @@ const TESTED_SKILLS = [
 export default function BusinessPage() {
   return (
     <>
+      <JsonLd
+        data={courseListJsonLd(
+          businessPage.path,
+          businessPage.programs.map((program) => ({ ...program, language: program.levelTest })),
+        )}
+      />
       <PageHero
         breadcrumbs={[{ label: "Soluções" }, { label: "Empresas e Profissionais" }]}
         eyebrow="Para empresas e profissionais"
@@ -204,6 +212,8 @@ export default function BusinessPage() {
           ids={businessPage.testimonialIds}
         />
       </HydrationBoundary>
+
+      <FromTheBlog path={businessPage.path} />
 
       <HydrationBoundary>
         <ClosingCta

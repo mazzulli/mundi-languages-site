@@ -1,6 +1,8 @@
 import { ChevronDown } from "lucide-react";
 
+import { JsonLd } from "@/components/seo/json-ld";
 import { SectionHeader } from "@/components/ui/section-header";
+import { faqJsonLd } from "@/lib/json-ld";
 import type { FaqItem } from "@content/faq";
 
 /**
@@ -29,6 +31,7 @@ export function FaqSection({ items }: { items: (FaqItem & { answer: string })[] 
           ))}
         </div>
       </div>
+      <JsonLd data={faqJsonLd(items)} />
     </section>
   );
 }

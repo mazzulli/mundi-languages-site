@@ -205,6 +205,8 @@ export const homeTestimonialIds = [
 
 export const homeSeo: PageSeo = {
   title: "Cursos de Idiomas Online Personalizados",
+  description:
+    "Cursos de inglês, português, espanhol, francês, italiano e alemão com aulas ao vivo, plataforma 24/7 e plano personalizado. Faça seu teste de nível grátis.",
   keywords: ["curso de idiomas online", "aulas particulares de idiomas"],
 };
 

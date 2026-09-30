@@ -74,7 +74,9 @@ export function SiteHeader() {
             src={logoDark}
             alt=""
             aria-hidden
-            priority
+            // Only the light logo is visible over the first screen (dark heroes): no preload here,
+            // so it does not compete with the CSS and fonts before the first paint.
+            loading="eager"
             sizes="176px"
             className={cx(
               "absolute inset-0 h-auto w-full transition-opacity duration-500",

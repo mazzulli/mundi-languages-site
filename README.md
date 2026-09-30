@@ -12,7 +12,7 @@ Next.js 16 (App Router) · TypeScript strict · Tailwind CSS v4 · GSAP + Scroll
 | Comando | O que faz |
 |---|---|
 | `pnpm dev` | Servidor de desenvolvimento em http://localhost:3000 |
-| `pnpm build` / `pnpm start` | Build de produção (`output: standalone`) e execução |
+| `pnpm build` / `pnpm start` | Build de produção e execução (deploy no Coolify com Nixpacks) |
 | `pnpm lint` | ESLint |
 | `pnpm typecheck` | Gera os tipos de rota do Next e roda `tsc --noEmit` |
 | `pnpm check` | lint + typecheck + check:content + build (rodar ao final de cada fase) |

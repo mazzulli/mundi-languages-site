@@ -3,8 +3,19 @@
  * Posts live at the site root (`/<slug>/`), as on WordPress.
  */
 export const blogCategories = {
-  learners: { slug: "learners", name: "Learners" },
-  "teachers-learners": { slug: "teachers-learners", name: "Teachers & Learners" },
+  learners: {
+    slug: "learners",
+    name: "Learners",
+    // New SEO copy (spec §8.3) — describes the posts of the category.
+    description:
+      "Artigos para quem aprende idiomas no blog da Mundi Languages: como se preparar para entrevistas em inglês e se comunicar com confiança no trabalho.",
+  },
+  "teachers-learners": {
+    slug: "teachers-learners",
+    name: "Teachers & Learners",
+    description:
+      "Artigos para professores e alunos de idiomas: gamificação, metodologias ativas, design thinking, soft skills, expressões e cultura. Blog da Mundi Languages.",
+  },
 } as const;
 
 export type BlogCategorySlug = keyof typeof blogCategories;

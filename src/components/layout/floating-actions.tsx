@@ -23,12 +23,13 @@ export function FloatingActions() {
   const href = whatsappUrl(whatsappMessageForPath(pathname));
 
   return (
-    <>
+    // A landmark keeps this fixed UI reachable by landmark navigation (axe: region).
+    <aside aria-label="Ações rápidas">
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Falar com a Karine no WhatsApp (abre em nova aba)"
+        aria-label="Fale com a Karine no WhatsApp (abre em nova aba)"
         tabIndex={visible ? undefined : -1}
         aria-hidden={visible ? undefined : true}
         className={cx(
@@ -64,6 +65,6 @@ export function FloatingActions() {
           </a>
         </div>
       </div>
-    </>
+    </aside>
   );
 }

@@ -22,9 +22,9 @@ export const site = {
     instagram: "https://www.instagram.com/lighthouselanguages/",
     youtube: "https://www.youtube.com/@lighthouselanguagesonline",
   },
-  copyright: "Designed by Mundi Studio",
+  copyright: "Mundi Languages. Todos os direitos reservados.",
   // TODO(cliente): confirm the development credit wording (spec §7.7).
-  developmentCredit: { label: "SSIT Consulting", url: null as string | null },
+  developmentCredit: { label: "SSIT Consulting", url: "www.ssitconsulting.com.br" as string | null },
   countries: ["Portugal", "Brasil", "Irlanda", "França"],
 } as const;
 

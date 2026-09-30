@@ -1,3 +1,4 @@
+import { FromTheBlog } from "@/components/blog/from-the-blog";
 import { ClosingCta } from "@/components/sections/closing-cta";
 import { PageHero } from "@/components/sections/page-hero";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
@@ -5,6 +6,8 @@ import { FlipCard } from "@/components/teachers/flip-card";
 import { CtaLink } from "@/components/ui/cta-link";
 import { HydrationBoundary } from "@/components/ui/hydration-boundary";
 import { SectionHeader } from "@/components/ui/section-header";
+import { JsonLd } from "@/components/seo/json-ld";
+import { courseListJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { reveal } from "@/lib/reveal";
 import { teachersPage } from "@content/teachers";
@@ -12,7 +15,6 @@ import { teachersPage } from "@content/teachers";
 export const metadata = pageMetadata({
   seo: teachersPage.seo,
   path: teachersPage.path,
-  fallbackDescription: teachersPage.subtitle,
 });
 
 const WHATSAPP_MESSAGE =
@@ -27,6 +29,7 @@ const ctaLabel = (slug: string) =>
 export default function TeachersPage() {
   return (
     <>
+      <JsonLd data={courseListJsonLd(teachersPage.path, teachersPage.programs)} />
       <PageHero
         breadcrumbs={[{ label: "Soluções" }, { label: "Desenvolvimento de Professores" }]}
         eyebrow="Para professores de idiomas"
@@ -93,6 +96,8 @@ export default function TeachersPage() {
           eyebrow="O que dizem os professores"
         />
       </HydrationBoundary>
+
+      <FromTheBlog path={teachersPage.path} />
 
       <HydrationBoundary>
         <ClosingCta

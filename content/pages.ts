@@ -52,7 +52,11 @@ export const contactPage = {
   ] satisfies { id: string; title: string; text: string; image: SiteImage; legacyCta: string }[],
   /** Short form fields (spec §11.3). */
   formProfiles: ["Aluno / profissional", "Empresa / RH", "Professor de idiomas"],
-  seo: { title: "Contato" } satisfies PageSeo,
+  seo: {
+    title: "Contato",
+    description:
+      "Fale com a Mundi Languages: WhatsApp, e-mail e horário de atendimento. Envie uma mensagem ou agende a sua consulta gratuita para montar o seu curso de idiomas.",
+  } satisfies PageSeo,
   legacyMeta: {
     title: "Contato - Mundi Languages",
     description: "Envie-nos uma mensagem",
@@ -68,7 +72,11 @@ export const aboutPage = {
   bio: null as string | null,
   mission: null as string | null,
   team: [] as { name: string; role: string }[],
-  seo: { title: "Sobre Karine Kakakis e a equipe" } satisfies PageSeo,
+  seo: {
+    title: "Sobre Karine Kakakis e a equipe",
+    description:
+      "Conheça Karine Kakakis, fundadora da Mundi Languages, e nossa proposta: experiências de aprendizagem de idiomas com foco nas pessoas e aulas ao vivo.",
+  } satisfies PageSeo,
   legacyMeta: {
     title: "Sobre - Mundi Languages",
     description: "Prazer em conhecê-los!",

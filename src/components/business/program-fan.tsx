@@ -10,7 +10,7 @@ const accentFor = (program: Program) =>
 /**
  * Program selector as a stacked deck that fans out when it enters the viewport
  * (spec §4.3, Empresas). Each card links to its program block below. Pure CSS: the fan is
- * driven by `data-revealed` (set by <RevealObserver/>); mobile gets a scrollable list.
+ * driven by `data-revealed` (set by the reveal script (src/lib/reveal-script.ts)); mobile gets a scrollable list.
  */
 export function ProgramFan({ programs }: { programs: Program[] }) {
   const middle = (programs.length - 1) / 2;

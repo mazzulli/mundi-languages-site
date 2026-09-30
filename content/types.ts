@@ -82,8 +82,8 @@ export type LegacyMeta = {
 export type PageSeo = {
   /** Without the "| Mundi Languages" suffix — the layout template adds it. */
   title: string;
-  /** 140–160 chars. TODO(phase 7) where empty. */
-  description?: string;
+  /** 140–160 chars: benefit + differentiator + call to action (spec §8.3). */
+  description: string;
   keywords?: string[];
 };
 

@@ -101,6 +101,9 @@ export function TestimonialCarousel({
     <div role="region" aria-roledescription="carrossel" aria-label={label}>
       <div
         ref={viewport}
+        // Native mode scrolls with the arrow keys once focused (WCAG 2.1.1); Embla mode is
+        // driven by the buttons below.
+        tabIndex={api ? undefined : 0}
         className={cx(
           "-mx-3 px-3 py-2",
           // Native scroll-snap until Embla takes over.
@@ -158,7 +161,8 @@ export function TestimonialCarousel({
           )}
         </button>
         <p
-          aria-live="polite"
+          // WAI-ARIA carousel pattern: silent while rotating, announced when paused.
+          aria-live={playing ? "off" : "polite"}
           className={cx("ml-2 text-sm tabular-nums", onInk ? "text-primary-300" : "text-muted")}
         >
           {selected + 1} / {slides.length}

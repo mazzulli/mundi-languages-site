@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 import { Approach } from "@/components/home/approach";
 import { FeaturedPrograms } from "@/components/home/featured-programs";
 import { Hero } from "@/components/home/hero";
@@ -10,13 +8,16 @@ import { ClosingCta } from "@/components/sections/closing-cta";
 import { FeatureSplit } from "@/components/sections/feature-split";
 import { LanguageMarquee } from "@/components/sections/language-marquee";
 import { HydrationBoundary } from "@/components/ui/hydration-boundary";
+import { seoMetadata } from "@/lib/metadata";
 import { businessBlock, homeSeo, teachersBlock } from "@content/home";
 
-export const metadata: Metadata = {
-  title: { absolute: `${homeSeo.title} | Mundi Languages` },
+export const metadata = seoMetadata({
+  title: `${homeSeo.title} | Mundi Languages`,
+  absoluteTitle: true,
+  description: homeSeo.description,
   keywords: homeSeo.keywords,
-  alternates: { canonical: "/" },
-};
+  path: "/",
+});
 
 export default function HomePage() {
   return (

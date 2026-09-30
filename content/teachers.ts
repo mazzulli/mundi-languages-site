@@ -100,6 +100,8 @@ export const teachersPage = {
   closingCta: { labelLegacy: "SEJA UM PROFESSOR PARCEIRO", href: "/professores-parceiros/" },
   seo: {
     title: "Formação para Professores de Idiomas",
+    description:
+      "Formação para professores de idiomas: proficiência (FCE, CAE, CPE), Business English, metodologia e carreira, com aulas ao vivo. Conheça os programas.",
     keywords: [
       "formação de professores de inglês",
       "proficiência para professores",

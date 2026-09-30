@@ -716,3 +716,24 @@ details[open]::details-content {
 .cursor-zone-active * {
   cursor: none;
 }
+
+/* Form success: ring and check draw themselves once */
+.success-ring {
+  stroke-dasharray: 1;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.success-check {
+  stroke-dasharray: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .success-ring {
+    animation: route-draw 0.9s var(--ease-power3-out) both;
+  }
+
+  .success-check {
+    animation: route-draw 0.6s var(--ease-power3-out) 0.55s both;
+  }
+}

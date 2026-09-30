@@ -32,7 +32,7 @@ export function Parallax({ children, speed = 0.15, oversize = true, className }:
     <div ref={outer} className={cx(oversize && "overflow-hidden", className)}>
       <div
         ref={inner}
-        className="h-full will-change-transform"
+        className="relative h-full will-change-transform"
         // Oversize so the moving layer never exposes its edges.
         style={oversize ? { scale: 1 + Math.abs(speed) } : undefined}
       >

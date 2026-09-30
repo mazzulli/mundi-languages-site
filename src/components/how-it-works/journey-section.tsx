@@ -48,7 +48,7 @@ export function JourneySection() {
 
             {steps.map((step, index) => (
               <li key={step.number} className="journey__step" {...reveal("up", (index % 2) * 100)}>
-                <p aria-hidden className="font-display text-sunrise text-7xl leading-none">
+                <p aria-hidden className="font-display text-sunrise-deep text-7xl leading-none">
                   {String(step.number).padStart(2, "0")}
                 </p>
                 <div className="rounded-card bg-mist relative mt-6 aspect-[16/10] overflow-hidden">

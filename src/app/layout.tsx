@@ -6,9 +6,12 @@ import { FloatingActions } from "@/components/layout/floating-actions";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Preloader } from "@/components/motion/preloader";
-import { RevealObserver } from "@/components/motion/reveal-observer";
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll-provider";
+import { JsonLd } from "@/components/seo/json-ld";
 import { HydrationBoundary } from "@/components/ui/hydration-boundary";
+import { siteGraph } from "@/lib/json-ld";
+import { REVEAL_SCRIPT } from "@/lib/reveal-script";
+import { ogImages, ogSize } from "@/lib/og-registry";
 import { site } from "@content/site";
 import "./globals.css";
 
@@ -34,8 +37,13 @@ export const metadata: Metadata = {
   description: site.tagline,
   applicationName: site.name,
   // Main market confirmed as Brazil (pt-BR) on 2026-09-29.
-  openGraph: { type: "website", locale: "pt_BR", siteName: site.name },
-  twitter: { card: "summary_large_image" },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: site.name,
+    images: [{ url: "/og/home.png", ...ogSize, alt: ogImages.home!.alt }],
+  },
+  twitter: { card: "summary_large_image", images: ["/og/home.png"] },
 };
 
 export const viewport: Viewport = {
@@ -59,6 +67,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: REVEAL_SCRIPT }} />
+        <JsonLd data={siteGraph()} />
       </head>
       {/*
         Browser extensions (e.g. ColorZilla adds `cz-shortcut-listen`) inject attributes into
@@ -76,7 +86,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </HydrationBoundary>
           <FloatingActions />
           <ExitIntent />
-          <RevealObserver />
         </SmoothScrollProvider>
       </body>
     </html>

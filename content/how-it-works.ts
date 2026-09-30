@@ -93,6 +93,8 @@ export const howItWorksPage = {
   closingCtaHref: "/agendamento/",
   seo: {
     title: "Como Funcionam as Aulas",
+    description:
+      "Veja como funcionam as aulas: teste de nível, plano personalizado, aulas ao vivo e plataforma 24/7 para praticar todos os dias. Comece pelo teste grátis.",
     keywords: ["teste de nível de inglês", "aulas de idiomas online como funciona"],
   } satisfies PageSeo,
   legacyMeta: {

@@ -105,6 +105,8 @@ export const businessPage: ProgramsPage = {
   closingCtaHref: "/agendamento/",
   seo: {
     title: "Inglês Corporativo e Idiomas para Empresas",
+    description:
+      "Inglês corporativo e idiomas para empresas: programas sob medida, aulas ao vivo e plataforma 24/7 para sua equipe. Solicite uma proposta personalizada.",
     keywords: ["inglês corporativo", "inglês in company", "treinamento de idiomas para empresas"],
   },
   legacyMeta: {
@@ -168,6 +170,8 @@ export const languagePages: Record<LanguageCode, ProgramsPage> = {
     closingCtaHref: "/agendamento/",
     seo: {
       title: "Curso de Inglês Online com Aulas ao Vivo",
+      description:
+        "Curso de inglês online com aulas ao vivo, plataforma 24/7 e foco em carreira, entrevistas, viagens e exames. Faça seu teste de nível de inglês grátis.",
       keywords: [
         "curso de inglês online",
         "inglês para carreira",
@@ -219,6 +223,8 @@ export const languagePages: Record<LanguageCode, ProgramsPage> = {
     closingCtaHref: "/agendamento/",
     seo: {
       title: "Curso de Português para Estrangeiros Online",
+      description:
+        "Aulas de português para estrangeiros e português corporativo online, com aulas ao vivo e plataforma 24/7. Faça seu teste de nível de português grátis.",
       keywords: ["aulas de português para estrangeiros", "português corporativo"],
     },
     legacyMeta: {
@@ -263,6 +269,8 @@ export const languagePages: Record<LanguageCode, ProgramsPage> = {
     closingCtaHref: "/agendamento/",
     seo: {
       title: "Curso de Espanhol Online e Espanhol Corporativo",
+      description:
+        "Curso de espanhol online com aulas ao vivo, conversação e espanhol corporativo, mais plataforma 24/7 para praticar. Faça seu teste de nível grátis.",
       keywords: ["curso de espanhol online", "conversação em espanhol"],
     },
     legacyMeta: {
@@ -308,6 +316,8 @@ export const languagePages: Record<LanguageCode, ProgramsPage> = {
     closingCtaHref: "/agendamento/",
     seo: {
       title: "Curso de Francês Online com Conversação",
+      description:
+        "Curso de francês online com aulas ao vivo e muita conversação, mais plataforma 24/7 e plano personalizado. Faça seu teste de nível de francês grátis.",
       keywords: ["curso de francês online"],
     },
     legacyMeta: {
@@ -351,7 +361,12 @@ export const languagePages: Record<LanguageCode, ProgramsPage> = {
     highlightQuote: "O curso e as aulas me surpreenderam positivamente",
     testimonialIds: ["T35", "T36", "T37", "T22", "T33", "T24"],
     closingCtaHref: "/agendamento/",
-    seo: { title: "Curso de Italiano Online", keywords: ["curso de italiano online"] },
+    seo: {
+      title: "Curso de Italiano Online",
+      description:
+        "Curso de italiano online com aulas ao vivo, plataforma 24/7 e plano de estudos personalizado para seus objetivos. Faça seu teste de nível grátis.",
+      keywords: ["curso de italiano online"],
+    },
     legacyMeta: {
       title: "Cursos de Italiano - Mundi Languages",
       description: "Programas personalizados em italiano",
@@ -393,7 +408,12 @@ export const languagePages: Record<LanguageCode, ProgramsPage> = {
     highlightQuote: "O curso e as aulas me surpreenderam positivamente",
     testimonialIds: ["T35", "T36", "T37", "T22", "T33", "T24"],
     closingCtaHref: "/agendamento/",
-    seo: { title: "Curso de Alemão Online", keywords: ["curso de alemão online"] },
+    seo: {
+      title: "Curso de Alemão Online",
+      description:
+        "Curso de alemão online com aulas ao vivo, plataforma 24/7 e plano personalizado para seus objetivos. Agende sua consulta gratuita e comece já.",
+      keywords: ["curso de alemão online"],
+    },
     legacyMeta: {
       title: "Cursos de Alemão - Mundi Languages",
       description: "Programas personalizados em alemão",

@@ -17,7 +17,10 @@
     "images:manifest": "tsx scripts/build-image-manifest.ts",
     "check:content": "tsx scripts/check-content.ts",
     "globe:dots": "tsx scripts/build-globe-dots.mts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "blog:migrate": "tsx scripts/migrate-blog.mts",
+    "lighthouse": "tsx scripts/lighthouse.mts",
+    "vitals": "tsx scripts/measure-vitals.mts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -78,6 +81,6 @@
   },
   "packageManager": "pnpm@11.9.0",
   "engines": {
-    "node": ">=20.9"
+    "node": ">=22.13"
   }
 }

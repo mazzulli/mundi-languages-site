@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 type RevealKind = "up" | "fade";
 
 /**
- * Props for an element revealed on scroll by <RevealObserver/>.
+ * Props for an element revealed on scroll by the reveal script (src/lib/reveal-script.ts).
  *
  * Always use this helper instead of writing `data-reveal` by hand: the observer sets
  * `data-revealed` on the DOM, possibly before the element's HydrationBoundary hydrates, so

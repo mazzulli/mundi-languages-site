@@ -23,7 +23,7 @@ export function RevealText<T extends ElementType = "h2">({
     as ?? "h2",
     {
       "data-reveal": "words",
-      // `data-revealed` is set by <RevealObserver/>, possibly before this subtree hydrates.
+      // `data-revealed` is set by the reveal script (src/lib/reveal-script.ts), possibly before this subtree hydrates.
       suppressHydrationWarning: true,
       style: { ...style, "--reveal-delay": delay },
       ...props,

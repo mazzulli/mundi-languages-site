@@ -1,3 +1,4 @@
+import { FromTheBlog } from "@/components/blog/from-the-blog";
 import { ClosingCta } from "@/components/sections/closing-cta";
 import { FaqSection } from "@/components/sections/faq-section";
 import { FormatsSection } from "@/components/sections/formats-section";
@@ -8,6 +9,8 @@ import { TypedGreeting } from "@/components/sections/typed-greeting";
 import { CtaLink } from "@/components/ui/cta-link";
 import { HydrationBoundary } from "@/components/ui/hydration-boundary";
 import { SectionHeader } from "@/components/ui/section-header";
+import { JsonLd } from "@/components/seo/json-ld";
+import { courseListJsonLd } from "@/lib/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { courseInterestMessage } from "@/lib/whatsapp";
 import { publishedFaq } from "@content/faq";
@@ -16,7 +19,7 @@ import { languagePages } from "@content/programs";
 
 export function languagePageMetadata(code: LanguageCode) {
   const page = languagePages[code];
-  return pageMetadata({ seo: page.seo, path: page.path, fallbackDescription: page.subtitle });
+  return pageMetadata({ seo: page.seo, path: page.path });
 }
 
 /**
@@ -31,6 +34,12 @@ export function LanguagePage({ code }: { code: LanguageCode }) {
 
   return (
     <>
+      <JsonLd
+        data={courseListJsonLd(
+          page.path,
+          page.programs.map((program) => ({ ...program, language: code })),
+        )}
+      />
       <PageHero
         breadcrumbs={[{ label: "Soluções" }, { label: `Cursos de ${language.name}` }]}
         kicker={
@@ -102,6 +111,8 @@ export function LanguagePage({ code }: { code: LanguageCode }) {
       <HydrationBoundary>
         <FaqSection items={publishedFaq(code)} />
       </HydrationBoundary>
+
+      <FromTheBlog path={page.path} />
 
       <HydrationBoundary>
         <ClosingCta

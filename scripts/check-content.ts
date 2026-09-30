@@ -261,7 +261,10 @@ function checkTestimonialList(group: string, block: string, actual: readonly str
     site.virtualEnvironmentUrl,
     field("Ambiente Virtual \\(botão no header\\)"),
   );
-  expectText(group, field("Rodapé").replace(/^Copyright © \d{4} - /, ""));
+  // Approved change (user, 2026-09-30): the footer no longer says "Designed by Mundi Studio";
+  // it uses `site.copyright` plus the development credit instead.
+  info.push(`${group}: rodapé "${field("Rodapé")}" substituído por "${site.copyright}" (aprovado)`);
+  expect(group, site.copyright.trim() !== "", "texto de copyright do rodapé vazio");
   expectText(group, field("Frase de fechamento usada nas páginas").match(/"([^"]+)"/)?.[1] ?? "");
 
   const menu = field("Menu")
@@ -571,6 +574,37 @@ expect(
   );
   for (const slugs of slugsPerPage)
     expect(group, new Set(slugs).size === slugs.length, `âncoras duplicadas: ${slugs}`);
+}
+
+// ─── Blog migration (Phase 6): every post has its MDX body, meta and images ─────
+
+{
+  const group = "blog migrado";
+  const meta = JSON.parse(
+    readFileSync(path.join(ROOT, "content/generated/blog-meta.json"), "utf8"),
+  ) as Record<string, { cover: string; excerpt: string }>;
+  for (const post of blogPosts) {
+    const file = path.join(ROOT, "content/blog", `${post.slug}.mdx`);
+    const exists = existsSync(file);
+    expect(group, exists, `post sem MDX: ${post.slug}`);
+    expect(group, Boolean(meta[post.slug]?.excerpt), `post sem meta/resumo: ${post.slug}`);
+    const cover = meta[post.slug]?.cover ?? "";
+    expect(group, cover in manifest, `capa não migrada: ${post.slug} (${cover})`);
+    if (!exists) continue;
+    const body = readFileSync(file, "utf8");
+    expect(
+      group,
+      body.replace(/\{\/\*.*?\*\/\}/s, "").trim().length > 400,
+      `corpo vazio: ${post.slug}`,
+    );
+    for (const [, src] of body.matchAll(/!\[[^\]]*\]\(\/images\/legacy\/([^)\s]+)\)/g))
+      expect(group, (src ?? "") in manifest, `imagem do post não migrada: ${post.slug} → ${src}`);
+    expect(
+      group,
+      !/mundilanguages\.com\/wp-content|files\.wordpress\.com/.test(body),
+      `imagem ainda remota: ${post.slug}`,
+    );
+  }
 }
 
 // ─── Output ──────────────────────────────────────────────────────────────────

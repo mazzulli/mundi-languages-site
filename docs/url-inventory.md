@@ -50,10 +50,12 @@
 
 | URL | Destino |
 |---|---|
-| `/feed/`, `/comments/feed/`, `/{post}/feed/` | 301 → `/blog/` |
+| `/feed/`, `/comments/feed/` | 301 → `/blog/` |
+| `/{post}/feed/`, `/category/{slug}/feed/` | 301 → o próprio post / categoria |
+| `/blog/page/1/` | 301 → `/blog/` |
 | `/sitemap_index.xml`, `/post-sitemap.xml`, `/page-sitemap.xml`, `/category-sitemap.xml`, `/wp-sitemap.xml` | 301 → `/sitemap.xml` |
 | `/wp-content/uploads/*` | 301 → `/images/legacy/*` (imagens indexadas no Google Imagens) |
-| `/wp-admin/*`, `/wp-login.php` | 410 / 404 |
+| `/wp-admin/*`, `/wp-login.php` | 404 personalizado |
 
 ## Posts (14)
 
@@ -88,3 +90,9 @@
 - JSON-LD do Rank Math declara a organização como **"Lighthouse Languages"** com logo em `lighthouselanguages.com` — corrigir para Mundi Languages.
 - `og:locale` e `inLanguage` = `en_US`.
 - `/teachers-needs-analysis/` e testes com meta description "Loading…".
+
+## Implementação (Fase 7)
+
+- Redirects 301: `next.config.ts` → `redirects()`.
+- Cobertura verificada por `tests/e2e/seo.spec.ts`: todas as URLs do sitemap antigo respondem 200 e as removidas respondem 301 para o destino desta tabela.
+- Novas páginas: `/sobre/`, `/link-in-bio/` (noindex), `/politica-de-privacidade/` e `/termos/` (noindex até o texto da cliente).

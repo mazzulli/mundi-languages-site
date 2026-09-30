@@ -11,7 +11,6 @@ import { howItWorksPage } from "@content/how-it-works";
 export const metadata = pageMetadata({
   seo: howItWorksPage.seo,
   path: howItWorksPage.path,
-  fallbackDescription: howItWorksPage.subtitle,
 });
 
 const WHATSAPP_MESSAGE = "Quero montar o meu curso e gostaria de agendar uma consulta gratuita.";
