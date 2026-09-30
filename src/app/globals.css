@@ -1,26 +1,718 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design tokens — see docs/brand-audit.md.
+ * Brand anchors come from the logo (#4A625A, #4A5B62, #94A79B) and the Blocksy
+ * palette of the legacy site. Scales are defined in OKLCH.
+ */
+@theme static {
+  /* Brand anchors */
+  --color-brand-primary: #4a625a;
+  --color-brand-secondary: #4a5b62;
+  --color-brand-sage: #94a79b;
+  --color-brand-tint: #a5c7c2;
+
+  /* Primary scale (hue 172.5 — sage of the logo globe) */
+  --color-primary-50: oklch(0.975 0.011 172.5);
+  --color-primary-100: oklch(0.95 0.011 172.5);
+  --color-primary-200: oklch(0.9 0.022 172.5);
+  --color-primary-300: oklch(0.82 0.022 172.5);
+  --color-primary-400: oklch(0.72 0.032 172.5);
+  --color-primary-500: oklch(0.62 0.032 172.5);
+  --color-primary-600: oklch(0.52 0.032 172.5);
+  --color-primary-700: oklch(0.45 0.032 172.5);
+  --color-primary-800: oklch(0.37 0.032 172.5);
+  --color-primary-900: oklch(0.29 0.032 172.5);
+  --color-primary-950: oklch(0.2 0.032 172.5);
+
+  /* Neutrals */
+  --color-ink-950: #0b1220;
+  --color-ink-900: #111a2e;
+  --color-ink-800: #1b2640;
+  --color-ink-700: #2a3653;
+  --color-paper: #faf8f4;
+  --color-mist: #eef4f3;
+  --color-muted: #4a5b62;
+
+  /* Single conversion color — primary CTAs only */
+  --color-sunrise: oklch(0.74 0.16 48);
+  --color-sunrise-hover: oklch(0.79 0.15 58);
+  --color-sunrise-deep: oklch(0.55 0.15 42);
+
+  /* Language signature colors: `-{lang}` on light backgrounds, `-{lang}-light` on ink */
+  --color-lang-en: oklch(0.5 0.11 250);
+  --color-lang-en-light: oklch(0.8 0.09 250);
+  --color-lang-pt: oklch(0.5 0.12 150);
+  --color-lang-pt-light: oklch(0.8 0.1 150);
+  --color-lang-es: oklch(0.52 0.15 30);
+  --color-lang-es-light: oklch(0.8 0.12 30);
+  --color-lang-fr: oklch(0.5 0.12 285);
+  --color-lang-fr-light: oklch(0.8 0.1 285);
+  --color-lang-it: oklch(0.5 0.12 125);
+  --color-lang-it-light: oklch(0.8 0.1 125);
+  --color-lang-de: oklch(0.5 0.1 75);
+  --color-lang-de-light: oklch(0.8 0.09 75);
+
+  /* Typography */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  /* Fluid type scale (H1 of the hero: 48 → 96px) */
+  --text-display-1: clamp(3rem, 1.9rem + 4.6vw, 6rem);
+  --text-display-1--line-height: 1;
+  --text-display-1--letter-spacing: -0.03em;
+  --text-display-2: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
+  --text-display-2--line-height: 1.05;
+  --text-display-2--letter-spacing: -0.025em;
+  --text-display-3: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+  --text-display-3--line-height: 1.1;
+  --text-display-3--letter-spacing: -0.02em;
+  --text-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
+  --text-lead--line-height: 1.55;
+
+  /* Motion */
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-power3-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  --animate-fade-in: fade-in 300ms var(--ease-expo-out);
+  --animate-fade-out: fade-out 250ms ease-in forwards;
+  --animate-sheet-in: sheet-in 500ms var(--ease-expo-out);
+  --animate-sheet-out: sheet-out 300ms ease-in forwards;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes sheet-in {
+    from {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes sheet-out {
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  --radius-card: 1.75rem;
+  --radius-blob: 42% 58% 55% 45% / 48% 42% 58% 52%;
+
+  --shadow-card: 0 1px 2px rgb(11 18 32 / 0.04), 0 12px 40px -12px rgb(11 18 32 / 0.18);
+  --shadow-glow: 0 0 0 1px rgb(255 255 255 / 0.08), 0 20px 60px -20px oklch(0.74 0.16 48 / 0.6);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    @apply bg-paper text-ink-900 font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-balance;
+    font-optical-sizing: auto;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sunrise-deep);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .on-ink :focus-visible {
+    outline-color: var(--color-sunrise);
+  }
+
+  ::selection {
+    background: var(--color-sunrise);
+    color: var(--color-ink-950);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Animated aurora mesh — sage → sea green → soft violet */
+  .bg-aurora {
+    background:
+      radial-gradient(60% 60% at 20% 20%, oklch(0.62 0.06 172.5 / 0.55), transparent 70%),
+      radial-gradient(50% 50% at 80% 30%, oklch(0.78 0.07 190 / 0.45), transparent 70%),
+      radial-gradient(55% 55% at 60% 85%, oklch(0.6 0.12 290 / 0.35), transparent 70%);
+  }
+
+  .border-aurora {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--card-bg, var(--color-paper)), var(--card-bg, var(--color-paper)))
+        padding-box,
+      linear-gradient(135deg, var(--color-brand-sage), var(--color-brand-tint), oklch(0.7 0.1 290))
+        border-box;
+  }
+
+  .text-gradient-aurora {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-brand-tint),
+      oklch(0.85 0.08 190),
+      oklch(0.8 0.1 290)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Keep italic overhangs inside the clipped area */
+    padding-inline: 0.06em;
+    margin-inline: -0.06em;
+  }
+
+  .container-site {
+    @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8 lg:px-12;
+  }
+}
+
+/* Primary CTA: light that travels around the border */
+@property --shine-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.cta-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--shine-angle),
+    transparent 0deg,
+    transparent 290deg,
+    rgb(255 255 255 / 0.95) 330deg,
+    transparent 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cta-shine::after {
+    animation: shine-rotate 1.6s var(--ease-power3-out) 1;
+    animation-delay: calc(var(--intro-delay) + 0.8s);
+  }
+
+  .cta-shine:is(:hover, :focus-visible)::after {
+    animation: shine-rotate 1.6s linear infinite;
+  }
+}
+
+@keyframes shine-rotate {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    --shine-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-shine::after {
+    animation: none !important;
+  }
+}
+
+/*
+ * Reveal system (no JS library): elements with [data-reveal] are hidden only when JS is
+ * available (html.js, set by an inline script) and revealed by <RevealObserver/>.
+ * Hero intro waits for the preloader through --intro-delay.
+ */
+:root {
+  --intro-delay: 1s;
+}
+
+html.no-preloader {
+  --intro-delay: 0s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal]:not([data-reveal="words"]) {
+    opacity: 0;
+    translate: 0 28px;
+    transition:
+      opacity 0.9s var(--ease-expo-out),
+      translate 0.9s var(--ease-expo-out);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+  }
+
+  html.js [data-reveal="fade"] {
+    translate: none;
+  }
+
+  html.js [data-reveal][data-revealed]:not([data-reveal="words"]) {
+    opacity: 1;
+    translate: none;
+  }
+
+  /* Word-by-word heading reveal: each word slides up from its own mask */
+  html.js [data-reveal="words"] .word > span {
+    display: inline-block;
+    translate: 0 105%;
+    transition: translate 0.9s var(--ease-expo-out);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms + var(--i) * 45ms);
+  }
+
+  html.js [data-reveal="words"][data-revealed] .word > span {
+    translate: none;
+  }
+
+  /*
+   * Hero intro: plays once after the preloader. Text only moves (never starts at
+   * opacity 0) so it is painted at FCP and does not delay LCP; decorations may fade.
+   */
+  html.js .intro {
+    animation: intro-up 1s var(--ease-expo-out) both;
+    animation-delay: calc(var(--intro-delay) + var(--i, 0) * 90ms);
+  }
+
+  html.js .intro-fade {
+    animation: intro-fade 1.1s var(--ease-expo-out) both;
+    animation-delay: calc(var(--intro-delay) + var(--i, 0) * 90ms);
+  }
+}
+
+.word {
+  display: inline-block;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+@keyframes intro-up {
+  from {
+    translate: 0 28px;
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+    scale: 0.96;
+  }
+}
+
+/*
+ * Preloader (first visit per session, pure CSS, ≤1.2s): a ring draws, the globe mark
+ * appears, greetings flash, then a curtain lifts. Hidden with html.no-preloader.
+ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--color-ink-950);
+  color: var(--color-paper);
+  animation: preloader-curtain 0.45s var(--ease-expo-out) 0.75s forwards;
+  pointer-events: none;
+}
+
+html.no-preloader .preloader,
+html:not(.js) .preloader {
+  display: none;
+}
+
+.preloader__ring {
+  stroke-dasharray: 302;
+  stroke-dashoffset: 302;
+  animation: preloader-draw 0.6s var(--ease-power3-out) forwards;
+}
+
+.preloader__mark {
+  opacity: 0;
+  scale: 0.85;
+  animation: preloader-mark 0.4s var(--ease-expo-out) 0.25s forwards;
+}
+
+.preloader__greetings {
+  position: relative;
+  height: 1.4em;
+  overflow: hidden;
+}
+
+.preloader__greetings span {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  opacity: 0;
+  animation: preloader-greeting 0.14s linear both;
+  animation-delay: calc(0.12s + var(--i) * 0.11s);
+}
+
+.preloader__greetings span:last-child {
+  animation-name: preloader-greeting-last;
+  animation-duration: 0.3s;
+}
+
+@keyframes preloader-curtain {
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@keyframes preloader-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes preloader-mark {
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes preloader-greeting {
+  0% {
+    opacity: 0;
+    translate: 0 40%;
+  }
+  30%,
+  70% {
+    opacity: 1;
+    translate: none;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -40%;
+  }
+}
+
+@keyframes preloader-greeting-last {
+  0% {
+    opacity: 0;
+    translate: 0 40%;
+  }
+  100% {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+}
+
+/* Slow ambient motion for the hero mesh blobs */
+@keyframes blob-drift {
+  0%,
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+  33% {
+    translate: 6% -4%;
+    scale: 1.08;
+  }
+  66% {
+    translate: -5% 5%;
+    scale: 0.95;
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+@keyframes star-on {
+  from {
+    opacity: 0.25;
+    scale: 0.6;
+  }
+}
+
+@keyframes pulse-ring {
+  from {
+    scale: 0.6;
+    opacity: 0.9;
+  }
+  to {
+    scale: 2.4;
+    opacity: 0;
+  }
+}
+
+/*
+ * Hero flight routes draw themselves once (a looping stroke animation would repaint on the
+ * main thread every frame and block TTI); the pins pulse with compositor-only transforms.
+ */
+.route-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .route-path {
+    animation: route-draw 1.8s var(--ease-power3-out) both;
+    animation-delay: calc(var(--intro-delay) + 0.3s + var(--i) * 0.18s);
+  }
+}
+
+@keyframes route-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+/* Testimonial stars light up one after another when their slide becomes active */
+@media (prefers-reduced-motion: no-preference) {
+  .is-active .stars svg,
+  [data-revealed] .stars svg {
+    animation: star-on 0.5s var(--ease-expo-out) both;
+    animation-delay: calc(var(--i) * 90ms + 150ms);
+  }
+}
+
+/* Line icons that draw themselves when their container is revealed */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] .icon-draw :is(path, circle, rect, line, polyline) {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 1.6s var(--ease-power3-out);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms + 200ms);
+  }
+
+  html.js [data-revealed] .icon-draw :is(path, circle, rect, line, polyline) {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Reduced motion: keep only short fades */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 150ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Language pages: the greeting types itself letter by letter, then the caret blinks a few times */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .typed-letter {
+    opacity: 0;
+    animation: typed-in 0.01s linear forwards;
+    animation-delay: calc(var(--intro-delay) + 0.35s + var(--i) * 0.11s);
+  }
+
+  html.js .typed-caret {
+    animation: caret-blink 0.9s steps(1) 5;
+    animation-delay: calc(var(--intro-delay) + 0.35s + var(--n) * 0.11s);
+  }
+}
+
+.typed-caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.85em;
+  margin-left: 0.08em;
+  vertical-align: -0.05em;
+  background: currentColor;
+  opacity: 0;
+}
+
+@keyframes typed-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes caret-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* FAQ accordion: animated height with native <details> (progressive enhancement) */
+details::details-content {
+  height: 0;
+  overflow: clip;
+  transition:
+    height 0.45s var(--ease-expo-out),
+    content-visibility 0.45s allow-discrete;
+}
+
+details[open]::details-content {
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details::details-content {
+    transition: none;
+  }
+}
+
+/* Empresas — program deck: stacked, then fanned out once revealed (transform only) */
+.fan-card {
+  transform-origin: 50% 250%;
+  translate: -50% 0;
+  rotate: calc(var(--offset) * 10deg);
+  transition:
+    rotate 1.1s var(--ease-expo-out),
+    translate 1.1s var(--ease-expo-out);
+  transition-delay: calc((4 - abs(var(--offset))) * 45ms);
+}
+
+.fan-card:hover,
+.fan-card:focus-within {
+  z-index: 10;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .program-fan:not([data-revealed]) .fan-card {
+    rotate: calc(var(--offset) * 1deg);
+    translate: -50% 1.5rem;
+  }
+}
+
+/* Professores — flip cards (both faces share one grid cell, so the card takes the taller one) */
+.flip-card__inner {
+  transform-style: preserve-3d;
+  transition: transform 0.8s var(--ease-expo-out);
+}
+
+.flip-card__face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+}
+
+.flip-card__back {
+  transform: rotateY(180deg);
+}
+
+.flip-card[data-flipped] .flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card__inner,
+  .flip-card[data-flipped] .flip-card__inner,
+  .flip-card__back {
+    transform: none;
+  }
+
+  .flip-card__face {
+    transition: opacity 0.15s;
+  }
+
+  .flip-card:not([data-flipped]) .flip-card__back,
+  .flip-card[data-flipped] .flip-card__face:not(.flip-card__back) {
+    opacity: 0;
+  }
+}
+
+/*
+ * Como Funciona — journey. Default (mobile, no JS, reduced motion): vertical list.
+ * Desktop with motion: a horizontal track; <JourneyPin/> pins it and scrubs it sideways.
+ * Until GSAP attaches (or if it fails) the track scrolls natively.
+ */
+.journey__track {
+  display: grid;
+  gap: 4rem;
+  padding: 6rem 1.25rem;
+  max-width: 88rem;
+  margin-inline: auto;
+}
+
+.journey__step {
+  max-width: 40rem;
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  html.js .journey__viewport {
+    overflow-x: auto;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+
+  html.js .journey[data-pinned] .journey__viewport {
+    overflow: hidden;
+  }
+
+  html.js .journey__track {
+    display: flex;
+    align-items: flex-start;
+    gap: 6rem;
+    width: max-content;
+    max-width: none;
+    margin: 0;
+    padding: 0 max(3rem, calc((100vw - 88rem) / 2 + 3rem));
+  }
+
+  html.js .journey__intro {
+    width: 30rem;
+    padding-top: 10rem;
+  }
+
+  html.js .journey__step {
+    width: 34rem;
+    max-width: none;
+  }
+
+  html.js .journey__line {
+    display: block;
+  }
+}
+
+/* Scoped custom cursor (<CursorZone/>): native cursor hidden only inside the active zone */
+.cursor-zone-active,
+.cursor-zone-active * {
+  cursor: none;
 }
